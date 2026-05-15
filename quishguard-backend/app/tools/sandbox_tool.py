@@ -21,6 +21,7 @@ Returns: SandboxResult
 """
 
 import asyncio
+import sys
 import logging
 import os
 import re
@@ -28,6 +29,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 from urllib.parse import urlparse
+
+# Ensure Windows uses ProactorEventLoop for subprocess support (needed for Playwright)
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 from playwright.async_api import async_playwright, Page, BrowserContext, TimeoutError as PlaywrightTimeout
 

@@ -15,6 +15,7 @@ def check_domain_age(domain: str) -> DomainAgeResult:
     Look up domain registration date via WHOIS and calculate age in days.
     Domains < 30 days old are flagged as 'new' (strong phishing signal).
     """
+    w = whois.whois(domain)
     try:
         w = whois.whois(domain)
         creation_date = w.creation_date
