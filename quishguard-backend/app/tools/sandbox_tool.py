@@ -30,9 +30,9 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urlparse
 
-# Ensure Windows uses ProactorEventLoop for subprocess support (needed for Playwright)
-if sys.platform == 'win32':
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+# NOTE: Event loop policy is set once in main.py — do NOT override here.
+# The previous ProactorEventLoopPolicy override conflicted with main.py's
+# WindowsSelectorEventLoopPolicy, causing event loop crashes.
 
 from playwright.async_api import async_playwright, Page, BrowserContext, TimeoutError as PlaywrightTimeout
 

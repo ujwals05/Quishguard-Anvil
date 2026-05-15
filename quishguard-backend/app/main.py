@@ -11,6 +11,8 @@ from contextlib import asynccontextmanager
 
 from app.api import webhook, threats, scan, dashboard
 from app.database import create_tables
+from fastapi import WebSocket, WebSocketDisconnect
+from app.services.notifier import notifier
 
 
 @asynccontextmanager
@@ -48,3 +50,13 @@ app.include_router(dashboard.router, prefix="/dashboard", tags=["Dashboard"])
 @app.get("/health")
 def health_check():
     return {"status": "ok", "service": "QuishGuard"}
+
+@app.websocket("/ws/dashboard")
+async def websocket_endpoint(websocket: WebSocket):
+    await notifier.connect(websocket)
+    try:
+        while True:
+            # Keep the connection alive
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        notifier.disconnect(websocket)
