@@ -21,6 +21,7 @@ Returns: SandboxResult
 """
 
 import asyncio
+import sys
 import logging
 import os
 import re
@@ -28,6 +29,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 from urllib.parse import urlparse
+
+# NOTE: Event loop policy is set once in main.py — do NOT override here.
+# The previous ProactorEventLoopPolicy override conflicted with main.py's
+# WindowsSelectorEventLoopPolicy, causing event loop crashes.
 
 from playwright.async_api import async_playwright, Page, BrowserContext, TimeoutError as PlaywrightTimeout
 

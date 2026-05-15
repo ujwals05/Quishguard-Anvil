@@ -21,6 +21,10 @@ async def gmail_webhook(
         body = await request.json()
         message = body.get("message", {})
         data_b64 = message.get("data", "")
+        
+        body_bytes = await request.body()
+        if not body_bytes:
+            return {"status": "ignored", "detail": "Empty body"}
 
         if not data_b64:
             return {"status": "no data"}
@@ -35,6 +39,7 @@ async def gmail_webhook(
         logger.info(f"Gmail webhook triggered — historyId: {history_id}")
         background_tasks.add_task(_handle_new_emails, history_id, db)
         return {"status": "ok"}
+        
 
     except Exception as e:
         logger.error(f"Webhook error: {e}")

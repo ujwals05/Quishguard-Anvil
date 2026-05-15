@@ -31,7 +31,8 @@ from app.config import settings
 from app.models.threat import ThreatRecord
 from app.tools.qr_tool import decode_qr_from_file
 from app.tools.ocr_tool import extract_url_from_image
-from app.tools.sandbox_tool import visit_url
+# from app.tools.sandbox_tool import visit_url
+from app.tools.sandbox_tool import visit_url_async
 from app.tools.virustotal_tool import check_virustotal
 from app.tools.domain_tool import check_domain_age
 
@@ -83,7 +84,7 @@ async def run_pipeline(
 
     # ── Step 2: Sandbox Visit ─────────────────────────────────────────────
     log("Sandbox", f"Visiting {extracted_url}")
-    sandbox = visit_url(extracted_url)
+    sandbox = await visit_url_async(extracted_url)
 
     if sandbox.success:
         log("Sandbox", f"✅ Final URL: {sandbox.final_url} | Redirects: {sandbox.redirect_count} | Login form: {sandbox.has_login_form}")

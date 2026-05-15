@@ -1,7 +1,16 @@
 from pydantic import BaseModel
 from typing import Optional, List, Any
 from datetime import datetime
+from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime
 
+class AgentThought(BaseModel):
+    agent_name: str
+    timestamp: datetime = datetime.now()
+    thought: str
+    tool_used: Optional[str] = None
+    observation: Optional[str] = None
 
 # ── Tool result schemas ────────────────────────────────────────────────────
 

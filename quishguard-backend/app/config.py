@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 
     # OpenAI (used by CrewAI)
     OPENAI_API_KEY: str = ""
+    GROQ_API_KEY: str = ""
 
     # Sandbox
     # Max seconds Playwright waits for a page to load
