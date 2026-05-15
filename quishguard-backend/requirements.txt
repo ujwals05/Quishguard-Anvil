@@ -1,0 +1,31 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+alembic
+psycopg2-binary          # or aiosqlite for SQLite
+
+# Agent framework
+crewai
+crewai-tools
+langchain-openai          # or langchain-anthropic
+
+# Tools
+google-auth-oauthlib
+google-api-python-client
+pyzbar                    # QR decoding
+opencv-python
+pytesseract               # OCR
+playwright                # Headless browser sandbox
+Pillow
+
+# Threat intel
+requests                  # VirusTotal API calls
+python-whois              # Domain age
+
+# Real-time
+websockets
+
+# Testing
+pytest
+httpx
